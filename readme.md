@@ -720,6 +720,9 @@ Everyone is welcome to help [contribute](CONTRIBUTING.md) and improve this proje
 
 ## Changelog
 
+### Version 4.3.0
+* Fix - enable to click (touch) a link in slider on Android and iOS;
+
 ### Version 4.2.14
 * Fixing flickering (on -webkit) when used background-image to instead of <img>
 * FIX calling API method stopAuto()
