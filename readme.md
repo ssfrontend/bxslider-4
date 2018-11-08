@@ -1,4 +1,4 @@
-# bxSlider 4.2.14
+# bxSlider 4.3.0
 ## The fully-loaded, responsive jQuery content slider
 ## Forked version by SSTeam
 
