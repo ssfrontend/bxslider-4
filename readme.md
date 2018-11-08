@@ -1,5 +1,6 @@
 # bxSlider 4.2.14
 ## The fully-loaded, responsive jQuery content slider
+## Forked version by SSTeam
 
 ### Why should I use this slider?
 * Fully responsive - will adapt to any device
