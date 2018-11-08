@@ -1217,7 +1217,7 @@
      *  - DOM event object
      */
     var onTouchEnd = function(e) {
-      e.preventDefault();
+      //e.preventDefault(); //fix-2 for iOS
       slider.viewport.off('touchmove MSPointerMove pointermove', onTouchMove);
       //enable slider controls as soon as user stops interacing with slides
       slider.controls.el.removeClass('disabled');
