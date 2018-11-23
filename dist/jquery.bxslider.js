@@ -158,6 +158,10 @@
       slider.interval = null;
       // determine which property to use for transitions
       slider.animProp = slider.settings.mode === 'vertical' ? 'top' : 'left';
+
+      // custom fix-3 of the sliders end
+      slider.settings.endIndex = slider.settings.moveSlides === 0 ? 1 : slider.settings.moveSlides;
+
       // determine if hardware acceleration can be used
       slider.usingCSS = slider.settings.useCSS && slider.settings.mode !== 'fade' && (function() {
         // create our test div element
@@ -257,11 +261,11 @@
       // if video is true, set up the fitVids plugin
       if (slider.settings.video) { el.fitVids(); }
 	  //preloadImages
-	  if (slider.settings.preloadImages === 'none') { 
-		  preloadSelector = null; 
+	  if (slider.settings.preloadImages === 'none') {
+		  preloadSelector = null;
 	  }
-      else if (slider.settings.preloadImages === 'all' || slider.settings.ticker) { 
-		  preloadSelector = slider.children; 
+      else if (slider.settings.preloadImages === 'all' || slider.settings.ticker) {
+		  preloadSelector = slider.children;
 	  }
       // only check for control addition if not in "ticker" mode
       if (!slider.settings.ticker) {
@@ -329,6 +333,14 @@
       slider.settings.onSliderLoad.call(el, slider.active.index);
       // slider has been fully initialized
       slider.initialized = true;
+
+      //custom: set moveSlides = 1 on small resolutions
+      if (slider.settings.moveSlides > 1) {
+          if (2*(slider.settings.slideWidth + slider.settings.slideMargin) >= slider.viewport.width()) {
+              slider.settings.moveSlides = 1;
+          }
+      }
+
       // add the resize call to the window
       if (slider.settings.responsive) { $(window).on('resize', resizeWindow); }
       // if auto is true and has more than 1 page, start the show
@@ -897,7 +909,7 @@
           slider.controls.prev.addClass('disabled');
           slider.controls.next.removeClass('disabled');
         // if last slide
-        } else if (slider.active.index === getPagerQty() - 1) {
+        } else if (slider.settings.endIndex*slider.active.index === getPagerQty() - slider.settings.endIndex) {   // custom fix the very end of slider
           slider.controls.next.addClass('disabled');
           slider.controls.prev.removeClass('disabled');
         // if any slide in the middle
@@ -1117,11 +1129,11 @@
         slider.touch.originalPos = el.position();
         var orig = e.originalEvent,
         touchPoints = (typeof orig.changedTouches !== 'undefined') ? orig.changedTouches : [orig];
-		var chromePointerEvents = typeof PointerEvent === 'function'; 
-		if (chromePointerEvents) { 
-			if (orig.pointerId === undefined) { 
+		var chromePointerEvents = typeof PointerEvent === 'function';
+		if (chromePointerEvents) {
+			if (orig.pointerId === undefined) {
 				return;
-			} 
+			}
 		}
         // record the starting touch x, y coordinates
         slider.touch.start.x = touchPoints[0].pageX;
@@ -1410,8 +1422,9 @@
         }
       }
 
-      // check if last slide
-      slider.active.last = slider.active.index >= getPagerQty() - 1;
+      // check if last slide + custom fix-3
+      slider.active.last = slider.settings.endIndex*slider.active.index >= getPagerQty() - slider.settings.endIndex; // custom fix-3 for removing empty space
+
       // update the pager with active class
       if (slider.settings.pager || slider.settings.pagerCustom) { updatePagerActive(slider.active.index); }
       // // check for direction control update
