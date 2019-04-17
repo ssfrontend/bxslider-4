@@ -1138,10 +1138,16 @@
         // record the starting touch x, y coordinates
         slider.touch.start.x = touchPoints[0].pageX;
         slider.touch.start.y = touchPoints[0].pageY;
-
+/*
         if (slider.viewport.get(0).setPointerCapture) {
           slider.pointerId = orig.pointerId;
           slider.viewport.get(0).setPointerCapture(slider.pointerId);
+        }
+	*/
+	/* fix Chrome 73 tuch */      
+	if (e.target.setPointerCapture) {
+          slider.pointerId = orig.pointerId;
+          e.target.setPointerCapture(slider.pointerId);
         }
         // store original event data for click fixation
         slider.originalClickTarget = orig.originalTarget || orig.target;
