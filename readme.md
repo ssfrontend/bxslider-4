@@ -1,4 +1,4 @@
-# bxSlider 4.3.0
+# bxSlider 4.4.0
 ## The fully-loaded, responsive jQuery content slider
 ## Forked version by SSTeam
 
@@ -719,6 +719,9 @@ Everyone is welcome to help [contribute](CONTRIBUTING.md) and improve this proje
 * Fixing [issues](https://github.com/roots/roots/issues)
 
 ## Changelog
+
+### Version 4.4.0
+* Fix - enable to click (touch) a link in slider on Chrome 73;
 
 ### Version 4.3.0
 * Fix - enable to click (touch) a link in slider on Android and iOS;
